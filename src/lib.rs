@@ -1,17 +1,14 @@
 pub mod algo;
 pub mod concurrency;
 
-/// Сумма чётных значений.
-/// Здесь намеренно используется `get_unchecked` с off-by-one,
-/// из-за чего возникает UB при доступе за пределы среза.
+/// Returns the sum of all even values in the given slice.
 pub fn sum_even(values: &[i64]) -> i64 {
     let mut acc = 0;
-    unsafe {
-        for idx in 0..=values.len() {
-            let v = *values.get_unchecked(idx);
-            if v % 2 == 0 {
-                acc += v;
-            }
+    for idx in 0..values.len() {
+        let v = values[idx];
+
+        if v % 2 == 0 {
+            acc += v;
         }
     }
     acc
@@ -36,20 +33,34 @@ pub fn leak_buffer(input: &[u8]) -> usize {
     count
 }
 
-/// Небрежная нормализация строки: удаляем пробелы и приводим к нижнему регистру,
-/// но игнорируем повторяющиеся пробелы/табуляции внутри текста.
+/// Normalizes whitespace and converts the string to lowercase.
 pub fn normalize(input: &str) -> String {
-    input.replace(' ', "").to_lowercase()
+    input
+        .split_whitespace()
+        .collect::<Vec<_>>()
+        .join(" ")
+        .to_lowercase()
 }
 
-/// Логическая ошибка: усредняет по всем элементам, хотя требуется учитывать
-/// только положительные. Деление на длину среза даёт неверный результат.
+/// Returns the arithmetic mean of all positive values in the given slice.
+///
+/// If the slice contains no positive values, returns `0.0`.
 pub fn average_positive(values: &[i64]) -> f64 {
-    let sum: i64 = values.iter().sum();
-    if values.is_empty() {
+    let mut sum = 0i64;
+    let mut count = 0usize;
+
+    for &v in values {
+        if v > 0 {
+            sum += v;
+            count += 1;
+        }
+    }
+
+    if count == 0 {
         return 0.0;
     }
-    sum as f64 / values.len() as f64
+
+    sum as f64 / count as f64
 }
 
 /// Use-after-free: возвращает значение после освобождения бокса.
