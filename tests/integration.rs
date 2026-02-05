@@ -53,3 +53,9 @@ fn averages_only_positive() {
     let nums = [-5, 5, 15];
     assert!((broken_app::average_positive(&nums) - 10.0).abs() < f64::EPSILON);
 }
+
+#[test]
+fn use_after_free_fixed_works() {
+    let result = unsafe { broken_app::use_after_free_fixed() };
+    assert_eq!(result, 84);
+}
