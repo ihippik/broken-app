@@ -1,0 +1,26 @@
+test miri_should_catch_uaf ... error: Undefined Behavior: memory access failed: alloc68347 has been freed, so this pointer is dangling
+  --> src/lib.rs:73:11
+   |
+73 |     val + *raw
+   |           ^^^^ Undefined Behavior occurred here
+   |
+   = help: this indicates a bug in the program: it performed an invalid operation, and caused Undefined Behavior
+   = help: see https://doc.rust-lang.org/nightly/reference/behavior-considered-undefined.html for further information
+help: alloc68347 was allocated here:
+  --> src/lib.rs:69:13
+   |
+69 |     let b = Box::new(42_i32);
+   |             ^^^^^^^^^^^^^^^^
+help: alloc68347 was deallocated here:
+  --> src/lib.rs:72:5
+   |
+72 |     drop(Box::from_raw(raw));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+   = note: this is on thread `miri_should_catch_uaf`
+   = note: stack backtrace:
+           0: broken_app::use_after_free
+               at src/lib.rs:73:11: 73:15
+           1: miri_should_catch_uaf
+               at tests/integration.rs:60:17: 60:45
+           2: miri_should_catch_uaf::{closure#0}
+               at tests/integration.rs:58:27: 58:27
