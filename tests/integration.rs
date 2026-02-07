@@ -1,4 +1,5 @@
-use broken_app::{algo, leak_buffer, normalize, sum_even};
+use std::thread;
+use broken_app::{algo, concurrency, leak_buffer, normalize, sum_even};
 
 #[test]
 fn sums_even_numbers() {
@@ -14,7 +15,7 @@ fn counts_non_zero_bytes() {
 
 #[test]
 fn dedup_preserves_uniques() {
-    let uniq = algo::slow_dedup(&[5, 5, 1, 2, 2, 3]);
+    let uniq = algo::fast_dedup(&[5, 5, 1, 2, 2, 3]);
     assert_eq!(uniq, vec![1, 2, 3, 5]); // порядок и состав важны
 }
 

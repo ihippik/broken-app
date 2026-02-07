@@ -1,0 +1,2 @@
+slow_dedup: 9.21625ms
+fast_dedup: 82.375µs

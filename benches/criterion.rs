@@ -22,6 +22,18 @@ fn bench_dedup(c: &mut Criterion) {
         )
     });
 }
+fn bench_fast_dedup(c: &mut Criterion) {
+    let data: Vec<u64> = (0..5_000).flat_map(|n| [n, n]).collect();
+    c.bench_function("fast_dedup_broken", |b| {
+        b.iter_batched(
+            || data.clone(),
+            |v| {
+                let _ = algo::fast_dedup(&v);
+            },
+            BatchSize::SmallInput,
+        )
+    });
+}
 
-criterion_group!(benches, bench_sum_even, bench_fib, bench_dedup);
+criterion_group!(benches, bench_sum_even, bench_fib, bench_dedup, bench_fast_dedup);
 criterion_main!(benches);
