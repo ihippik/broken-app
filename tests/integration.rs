@@ -1,5 +1,4 @@
-use std::thread;
-use broken_app::{algo, concurrency, leak_buffer, normalize, sum_even};
+use broken_app::{algo, leak_buffer, normalize, sum_even};
 
 #[test]
 fn sums_even_numbers() {

@@ -1,0 +1,37 @@
+➜  broken-app git:(main) ✗ RUSTFLAGS="-Zsanitizer=thread" cargo +nightly -Z build-std test --target aarch64-apple-darwin --tests
+   Compiling broken-app v0.1.0 (/Users/ihippik/RustroverProjects/broken-app)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.25s
+     Running unittests src/lib.rs (target/aarch64-apple-darwin/debug/deps/broken_app-480a7e123a0c2356)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/dedup_demo.rs (target/aarch64-apple-darwin/debug/deps/dedup_demo-354b66b24a08293e)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/demo.rs (target/aarch64-apple-darwin/debug/deps/demo-840b2c9d77df736c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/integration.rs (target/aarch64-apple-darwin/debug/deps/integration-466de22a54884479)
+
+running 11 tests
+test averages_only_positive ... ok
+test counts_non_zero_bytes ... ok
+test dedup_preserves_uniques ... ok
+test fib_small_numbers ... ok
+test normalize_collapses_mixed_whitespace_to_single_space ... ok
+test normalize_keeps_single_spaces_between_words ... ok
+test normalize_simple ... ok
+test normalize_treats_tabs_like_spaces ... ok
+test normalize_trims_outer_whitespace_but_preserves_word_separation ... ok
+test sums_even_numbers ... ok
+test use_after_free_fixed_works ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
