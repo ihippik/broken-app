@@ -4,6 +4,7 @@
 - Fixed obvious bugs using the IDE (RustRover) debugger
   - step into / step over
   - added tests
+- Fixed array out of bounds (Sanitizers)
 - Found and fixed undefined behavior (Miri)
 - Algorithmic issues have been fixed
   - `flamegraph` - look for bottlenecks (a large number of stack appearances 
